@@ -1,0 +1,108 @@
+{
+  "portraitImage": "/images/my-photo/hero-portrait.jpg",
+  "portraitImageObjectPosition": "center 32%",
+  "header": {
+    "title": {
+      "en": "Photographer & filmmaker — studio roots in India, creating in Germany.",
+      "de": "Fotograf & Filmemacher — Studioerfahrung in Indien, jetzt in Deutschland."
+    },
+    "intro": {
+      "en": "I run a photo and video studio in India, delivering cinematic photography, films, and edits for weddings, pre-weddings, products, and brands—from first idea through post-production. After years of work across Rajasthan, Delhi, and beyond, I am now based in Germany and collaborate with couples, companies, and agencies here, as well as on projects between Europe and India.",
+      "de": "Ich führe in Indien ein Foto- und Videostudio und liefere cineastische Fotografie, Filme und Schnitt für Hochzeiten, Pre-Weddings, Produkte und Marken – von der ersten Idee bis zur finalen Auslieferung. Nach Jahren in Rajasthan, Delhi und darüber hinaus lebe und arbeite ich nun in Deutschland und arbeite mit Paaren, Unternehmen und Agenturen hier sowie an Projekten zwischen Europa und Indien zusammen."
+    }
+  },
+  "experienceHeading": {
+    "en": "Experience",
+    "de": "Erfahrung"
+  },
+  "experience": [
+    {
+      "title": {
+        "en": "Media Professional · One Click Studio · Rajasthan, India",
+        "de": "Media Professional · One Click Studio · Rajasthan, Indien"
+      },
+      "dates": {
+        "en": "January 2023 – September 2025",
+        "de": "Januar 2023 – September 2025"
+      },
+      "bullets": {
+        "en": [
+          "Directed multi-camera shoots for brands and events.",
+          "Owned end-to-end video production and post-production.",
+          "Collaborated with marketing teams on social-first content and performance optimisation."
+        ],
+        "de": [
+          "Multi-Kamera-Shoots für Marken und Events geplant und umgesetzt.",
+          "End-to-End-Videoproduktion inklusive Licht, Ton und Schnitt verantwortet.",
+          "Mit Marketingteams an Social-First-Content und Performance-Optimierung gearbeitet."
+        ]
+      }
+    },
+    {
+      "title": {
+        "en": "Creative Director & Visual Content Lead · K Dream Wedding Planner · New Delhi, India",
+        "de": "Creative Director & Visual Content Lead · K Dream Wedding Planner · Neu-Delhi, Indien"
+      },
+      "dates": {
+        "en": "May 2021 – January 2023",
+        "de": "Mai 2021 – Januar 2023"
+      },
+      "bullets": {
+        "en": [
+          "Designed cinematic wedding stories for 150+ couples.",
+          "Led a creative team across photo, video, and social content."
+        ],
+        "de": [
+          "Über 150 Hochzeitsgeschichten mit einem Mix aus dokumentarischem und editorialem Stil gestaltet.",
+          "Ein Kreativteam für Foto, Video und Social Media geführt."
+        ]
+      }
+    }
+  ],
+  "skillsHeading": {
+    "en": "Skills & tools",
+    "de": "Skills & Tools"
+  },
+  "skillsLines": {
+    "en": [
+      "Video editing · Multi-camera workflow · Color grading",
+      "Photography · Cinematography · Lighting",
+      "Content strategy · Social media · Brand storytelling",
+      "Adobe Premiere Pro · Photoshop · Lightroom · Final Cut Pro",
+      "CapCut · Canva · AI-assisted tools"
+    ],
+    "de": [
+      "Videoschnitt · Multi-Kamera-Workflow · Color Grading",
+      "Fotografie · Cinematografie · Lichtsetzung",
+      "Content-Strategie · Social Media · Brand Storytelling",
+      "Adobe Premiere Pro · Photoshop · Lightroom · Final Cut Pro",
+      "CapCut · Canva · KI-gestützte Tools"
+    ]
+  },
+  "educationHeading": {
+    "en": "Education",
+    "de": "Ausbildung"
+  },
+  "educationLines": {
+    "en": [
+      "Master of Commerce (M.COM) · Maharaja Ganga Singh University",
+      "Bachelor of Commerce (B.COM) · Maharaja Ganga Singh University"
+    ],
+    "de": [
+      "Master of Commerce (M.COM) · Maharaja Ganga Singh University",
+      "Bachelor of Commerce (B.COM) · Maharaja Ganga Singh University"
+    ]
+  },
+  "languagesHeading": {
+    "en": "Languages",
+    "de": "Sprachen"
+  },
+  "languagesLine": {
+    "en": "English · German (A2–B1) · Hindi",
+    "de": "Englisch · Deutsch (A2–B1) · Hindi"
+  },
+  "downloadCvLabel": {
+    "en": "Download",
+    "de": "Herunterladen"
+  }
+}

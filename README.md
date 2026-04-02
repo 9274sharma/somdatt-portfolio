@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Somdatt Sharma — portfolio (Next.js)
 
-## Getting Started
-
-First, run the development server:
+## Local
 
 ```bash
+npm install
+cp .env.example .env.local
+# Edit .env.local — never commit it.
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## GitHub
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd site   # this folder is the repo root
+git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
+git branch -M main
+git push -u origin main
+```
 
-## Learn More
+## Deploy (Vercel — free hobby tier)
 
-To learn more about Next.js, take a look at the following resources:
+1. Push this repo to GitHub (root of the repo = this `site` folder, or set **Root Directory** to `site` if the repo is the parent folder).
+2. [vercel.com](https://vercel.com) → **Add New** → **Project** → import the repo.
+3. **Environment variables** (Production): same keys as `.env.example` — `RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO_EMAIL`, and optional `CALLMEBOT_*`.
+4. Deploy, then **Settings → Domains** → add `somdattsharma.com` / `www` and update DNS at your registrar (replace any “website builder” A record with Vercel’s records).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contact form posts to `/api/contact` on the deployed URL.

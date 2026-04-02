@@ -1,0 +1,136 @@
+{
+  "nav": {
+    "home": "Start",
+    "portfolio": "Portfolio",
+    "about": "Über mich",
+    "services": "Angebote",
+    "contact": "Kontakt",
+    "menu": "Menü",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "aboutPhoto": "Über Somdatt"
+  },
+  "hero": {
+    "tagline": "Fotograf · Videograf · Editor · Studioerfahrung in Indien",
+    "title": "Zeitgemäße Hochzeits- und Brandbilder mit Emotion und Klarheit.",
+    "body": "Von meiner Studioarbeit in Indien bis zu neuen Aufträgen in Deutschland produziere ich cineastische Fotos und Filme für Hochzeiten, Marken und Social Media – mit dokumentarischer Ehrlichkeit und klarer, redaktioneller Bildsprache.",
+    "ctaPrimary": "Portfolio ansehen",
+    "ctaSecondary": "Projekt anfragen",
+    "experience": "3+ Jahre Erfahrung",
+    "locations": "Hamburg · Rajasthan · Weltweit buchbar"
+  },
+  "homeAbout": {
+    "label": "Über mich",
+    "title": "Studio-nahe Produktion für Hochzeiten, Marken und Social – verwurzelt in Indien, neu in Deutschland.",
+    "body": "Von intimen Hochzeiten und Pre-Wedding-Shootings bis zu Produktkampagnen und Social-Content helfe ich Paaren und Unternehmen, Ideen in Bilder und Filme zu verwandeln, die modern, warm und ehrlich wirken.",
+    "statYears": "Jahre Arbeit für Marken & Paare",
+    "statProjects": "Foto- & Videoprojekte umgesetzt",
+    "statCountries": "Länder – Indien & Deutschland",
+    "workOn": "Woran ich arbeite",
+    "list": [
+      "· Hochzeit, Pre-Wedding & Paarreportagen",
+      "· Marken- & Produktfotografie sowie Film",
+      "· Social-First-Video-Content",
+      "· Postproduktion: Schnitt, Grading & Auslieferung"
+    ],
+    "cta": "Mehr über mich"
+  },
+  "selectedWork": {
+    "label": "Ausgewählte Arbeiten",
+    "title": "Ein Ausschnitt aus Hochzeiten, Markenprojekten und persönlichen Geschichten.",
+    "cta": "Ganzes Portfolio"
+  },
+  "aboutPage": {
+    "label": "Über mich",
+    "title": "Fotograf & Filmemacher — Studioerfahrung in Indien, jetzt in Deutschland.",
+    "intro": "Ich führe in Indien ein Foto- und Videostudio und liefere cineastische Fotografie, Filme und Schnitt für Hochzeiten, Pre-Weddings, Produkte und Marken – von der ersten Idee bis zur finalen Auslieferung. Nach Jahren in Rajasthan, Delhi und darüber hinaus lebe und arbeite ich nun in Deutschland und arbeite mit Paaren, Unternehmen und Agenturen hier sowie an Projekten zwischen Europa und Indien zusammen.",
+    "experience": "Erfahrung",
+    "expOneTitle": "Media Professional · One Click Studio · Rajasthan, Indien",
+    "expOneDates": "Januar 2023 – September 2025",
+    "expTwoTitle": "Creative Director & Visual Content Lead · K Dream Wedding Planner · Neu-Delhi, Indien",
+    "expTwoDates": "Mai 2021 – Januar 2023",
+    "skillsTitle": "Skills & Tools",
+    "educationTitle": "Ausbildung",
+    "languagesTitle": "Sprachen",
+    "languagesLine": "Englisch · Deutsch (A2–B1) · Hindi",
+    "downloadCv": "Herunterladen"
+  },
+  "servicesPage": {
+    "label": "Angebote",
+    "title": "Durchdachte Bildwelten für Hochzeiten, Marken und Social Media.",
+    "intro": "Ich arbeite mit Paaren, Marken und Agenturen zusammen, um Bild- und Videokonzepte zu entwickeln, die emotional wirken und auf Social funktionieren – in Deutschland, Indien oder als Destination-Projekt.",
+    "weddingsLabel": "Hochzeiten & Paare",
+    "weddingsTitle": "Dokumentarische & editoriale Reportagen",
+    "weddingsBullets": [
+      "· Ganztägige Hochzeitsreportage (Foto & Video)",
+      "· Pre-Wedding- & Verlobungsshootings",
+      "· Intime Elopements & Destination Weddings"
+    ],
+    "weddingsNote": "Pakete ab € / ₹ – auf Anfrage",
+    "brandsLabel": "Marken & Produkte",
+    "brandsTitle": "Kampagnen & Produkt-Storytelling",
+    "brandsBullets": [
+      "· Lookbooks & Kataloge",
+      "· Social Ads & Reels",
+      "· Content für Websites & Online-Shops"
+    ],
+    "brandsNote": "Individuelle Angebote je nach Umfang",
+    "socialLabel": "Social Media & Strategie",
+    "socialTitle": "Laufender Content & Performance",
+    "socialBullets": [
+      "· Monatliche Content-Produktion",
+      "· Kreative Leitung für Social Feeds",
+      "· Basis-Reporting (CTR, Reichweite, Watchtime)"
+    ],
+    "socialNote": "Retainer & Kooperationen"
+  },
+  "contactPage": {
+    "label": "Kontakt",
+    "title": "Erzähl mir von deiner Hochzeit, deinem Projekt oder deiner Idee.",
+    "intro": "Erzähl mir Datum, Ort, Projektart und Vorstellung – ob Hochzeit in Deutschland, Brand-Shoot oder Remote-Schnitt. Je konkreter, desto passender mein Vorschlag.",
+    "name": "Name",
+    "email": "E-Mail",
+    "projectType": "Projektart",
+    "budget": "Budgetrahmen (optional)",
+    "budgetPlaceholder": "z.B. 1.500–3.000 €",
+    "message": "Nachricht",
+    "messagePlaceholder": "Erzähl mir von Datum, Ort, Konzept und was du dir visuell wünschst.",
+    "submit": "Anfrage senden",
+    "directTitle": "Direkter Kontakt",
+    "directEmail": "E-Mail",
+    "directPhone": "Telefon / WhatsApp",
+    "directLine": "Standort Hamburg · Projekte in Deutschland, Indien & weltweit",
+    "typeWedding": "Hochzeit / Paar",
+    "typeBrand": "Brand / Kampagne",
+    "typeSocial": "Social-Media-Content",
+    "typeOther": "Etwas anderes",
+    "submitSending": "Wird gesendet…",
+    "submitSuccess": "Danke — deine Nachricht ist unterwegs. Ich melde mich bald.",
+    "submitError": "Das hat nicht geklappt. Bitte versuche es erneut oder schreib mir direkt per E-Mail.",
+    "submitErrorValidation": "Bitte prüfe Name, E-Mail und Nachricht.",
+    "submitErrorConfig": "Formular noch nicht eingerichtet (E-Mail-Dienst)."
+  },
+  "portfolioPage": {
+    "label": "Portfolio",
+    "title": "Geschichten über Hochzeiten, Marken und alltägliche Momente.",
+    "categoryAll": "Alle",
+    "categoryWeddings": "Hochzeiten",
+    "categoryCommercial": "Commercial",
+    "categorySocial": "Social",
+    "categoryPersonal": "Persönlich"
+  },
+  "projectPage": {
+    "client": "Kunde",
+    "role": "Rolle",
+    "year": "Jahr",
+    "location": "Ort",
+    "behind": "Hinter den Bildern",
+    "results": "Ergebnisse & Notizen",
+    "galleryClose": "Galerie schließen",
+    "galleryPrev": "Vorheriges Bild",
+    "galleryNext": "Nächstes Bild",
+    "galleryOpen": "Galerie öffnen",
+    "galleryMore": "weitere Fotos"
+  }
+}
+

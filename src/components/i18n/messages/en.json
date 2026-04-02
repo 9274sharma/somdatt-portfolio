@@ -1,0 +1,136 @@
+{
+  "nav": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "aboutPhoto": "About Somdatt"
+  },
+  "hero": {
+    "tagline": "Photographer · Videographer · Editor · Studio-trained in India",
+    "title": "Modern wedding and brand visuals crafted with emotion and clarity.",
+    "body": "From my studio work in India to new commissions in Germany, I create cinematic photographs and films for weddings, brands, and social media—blending documentary honesty with a clean, editorial look.",
+    "ctaPrimary": "View portfolio",
+    "ctaSecondary": "Book a project",
+    "experience": "3+ years experience",
+    "locations": "Hamburg · Rajasthan · Destination friendly"
+  },
+  "homeAbout": {
+    "label": "About",
+    "title": "Studio-grade production for weddings, brands, and social—with roots in India and a new chapter in Germany.",
+    "body": "From intimate weddings and pre-wedding shoots to product campaigns and social content, I help couples and companies turn ideas into images and films that feel modern, warm, and true.",
+    "statYears": "Years creating for brands & couples",
+    "statProjects": "Photo & video projects delivered",
+    "statCountries": "Countries — India & Germany",
+    "workOn": "What I work on",
+    "list": [
+      "· Wedding, pre-wedding & couple stories",
+      "· Brand & product photography and film",
+      "· Social-first video content",
+      "· Full post-production: edit, grade, and delivery"
+    ],
+    "cta": "Read full story"
+  },
+  "selectedWork": {
+    "label": "Selected work",
+    "title": "A small preview of weddings, brands, and stories.",
+    "cta": "View full portfolio"
+  },
+  "aboutPage": {
+    "label": "About",
+    "title": "Photographer & filmmaker — studio roots in India, creating in Germany.",
+    "intro": "I run a photo and video studio in India, delivering cinematic photography, films, and edits for weddings, pre-weddings, products, and brands—from first idea through post-production. After years of work across Rajasthan, Delhi, and beyond, I am now based in Germany and collaborate with couples, companies, and agencies here, as well as on projects between Europe and India.",
+    "experience": "Experience",
+    "expOneTitle": "Media Professional · One Click Studio · Rajasthan, India",
+    "expOneDates": "January 2023 – September 2025",
+    "expTwoTitle": "Creative Director & Visual Content Lead · K Dream Wedding Planner · New Delhi, India",
+    "expTwoDates": "May 2021 – January 2023",
+    "skillsTitle": "Skills & tools",
+    "educationTitle": "Education",
+    "languagesTitle": "Languages",
+    "languagesLine": "English · German (A2–B1) · Hindi",
+    "downloadCv": "Download"
+  },
+  "servicesPage": {
+    "label": "Services",
+    "title": "Thoughtful visuals for weddings, brands, and social media.",
+    "intro": "I collaborate with couples, brands, and agencies to plan and produce visuals that feel emotional on the day and work on social—whether you are in Germany, India, or planning a destination project.",
+    "weddingsLabel": "Weddings & couples",
+    "weddingsTitle": "Documentary & editorial coverage",
+    "weddingsBullets": [
+      "· Full-day wedding photo & video",
+      "· Pre-wedding / engagement sessions",
+      "· Intimate elopements and destination weddings"
+    ],
+    "weddingsNote": "Packages starting from € / ₹ — on request",
+    "brandsLabel": "Brands & products",
+    "brandsTitle": "Campaigns & product storytelling",
+    "brandsBullets": [
+      "· Lookbooks & catalogues",
+      "· Social ads & reels",
+      "· Content for websites & online shops"
+    ],
+    "brandsNote": "Custom quotes based on scope",
+    "socialLabel": "Social media & strategy",
+    "socialTitle": "Ongoing content & performance",
+    "socialBullets": [
+      "· Monthly content production",
+      "· Creative direction for social feeds",
+      "· Basic performance reporting (CTR, reach, watch time)"
+    ],
+    "socialNote": "Retainers & collaborations"
+  },
+  "contactPage": {
+    "label": "Contact",
+    "title": "Tell me about your wedding, project, or idea.",
+    "intro": "Share date, location, project type, and what you have in mind—whether it is a wedding in Germany, a brand shoot, or a remote edit. The more detail you give, the more tailored my reply can be.",
+    "name": "Name",
+    "email": "Email",
+    "projectType": "Project type",
+    "budget": "Budget range (optional)",
+    "budgetPlaceholder": "e.g. €1,500–€3,000",
+    "message": "Message",
+    "messagePlaceholder": "Tell me about your date, location, concept, and what kind of visuals you imagine.",
+    "submit": "Send inquiry",
+    "directTitle": "Direct contact",
+    "directEmail": "Email",
+    "directPhone": "Phone / WhatsApp",
+    "directLine": "Based in Hamburg · projects across Germany, India, and destinations",
+    "typeWedding": "Wedding / Couple",
+    "typeBrand": "Brand / Campaign",
+    "typeSocial": "Social Media Content",
+    "typeOther": "Something else",
+    "submitSending": "Sending…",
+    "submitSuccess": "Thank you — your message is on its way. I'll reply as soon as I can.",
+    "submitError": "Something went wrong. Please try again or email me directly.",
+    "submitErrorValidation": "Please check name, email, and message.",
+    "submitErrorConfig": "This form is not configured yet (email service)."
+  },
+  "portfolioPage": {
+    "label": "Portfolio",
+    "title": "Stories across weddings, brands, and everyday moments.",
+    "categoryAll": "All",
+    "categoryWeddings": "Weddings",
+    "categoryCommercial": "Commercial",
+    "categorySocial": "Social",
+    "categoryPersonal": "Personal"
+  },
+  "projectPage": {
+    "client": "Client",
+    "role": "Role",
+    "year": "Year",
+    "location": "Location",
+    "behind": "Behind the frames",
+    "results": "Results & notes",
+    "galleryClose": "Close gallery",
+    "galleryPrev": "Previous image",
+    "galleryNext": "Next image",
+    "galleryOpen": "Open gallery",
+    "galleryMore": "more photos"
+  }
+}
+
