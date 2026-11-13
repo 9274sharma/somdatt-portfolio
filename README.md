@@ -22,6 +22,15 @@ git push -u origin main
 
 ## Deploy (Vercel — free hobby tier)
 
+The Vercel project `somdattsharma-portfolio` is connected to this GitHub repo:
+
+- push to **`main`** → **production** build (somdattsharma.com)
+- push to any other branch → **preview** build (private vercel.app URL)
+
+Only merge into `main` when the Impressum/Datenschutz placeholders are filled in.
+
+### First-time setup (already done)
+
 1. Push this repo to GitHub (root of the repo = this `site` folder, or set **Root Directory** to `site` if the repo is the parent folder).
 2. [vercel.com](https://vercel.com) → **Add New** → **Project** → import the repo.
 3. **Environment variables** (Production + Preview): every key in `.env.example` — Sanity, admin, Resend, Google Calendar, OpenRouteService (CallMeBot optional).
