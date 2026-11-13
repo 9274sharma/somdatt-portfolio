@@ -3,18 +3,29 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { type MouseEvent, useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLanguage } from "@/components/i18n/LanguageProvider";
 import { useI18n } from "@/components/i18n/useI18n";
+import { tr } from "@/i18n/messages";
+import { getLenis } from "./lenis";
 
+/** Primary nav scrolls to home sections (Contact is a dedicated page/CTA). */
+/* The menu goes to the real pages (the About page used to be reachable only from Home). */
 const navItems = [
-  { href: "/", key: "nav.home" },
-  { href: "/portfolio", key: "nav.portfolio" },
-  { href: "/about", key: "nav.about" },
-  { href: "/services", key: "nav.services" },
-  { href: "/contact", key: "nav.contact" },
+  { href: "/portfolio", key: "nav.work", section: "work" },
+  { href: "/services", key: "nav.services", section: "services" },
+  { href: "/about", key: "nav.about", section: "about" },
 ] as const;
+
+/** Which nav item a page belongs to. */
+function routeSection(pathname: string | null): string {
+  if (!pathname) return "";
+  if (pathname.startsWith("/portfolio") || pathname.startsWith("/projects")) return "work";
+  if (pathname.startsWith("/services")) return "services";
+  if (pathname.startsWith("/about")) return "about";
+  return "";
+}
 
 function MenuIcon({ open }: { open: boolean }) {
   if (open) {
@@ -39,6 +50,7 @@ export function Header() {
   const { t } = useI18n();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [theme, setThemeState] = useState<"light" | "dark">("light");
 
   useLayoutEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- portal needs document.body after hydration
@@ -64,6 +76,37 @@ export function Header() {
       window.removeEventListener("keydown", onKey);
     };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    const current = document.documentElement.dataset.theme;
+    if (current === "dark" || current === "light") setThemeState(current);
+  }, []);
+
+  /* Logo: on home, smooth-scroll to the very top; elsewhere, navigate home. */
+  const goHome = (e: MouseEvent<HTMLAnchorElement>) => {
+    setMobileOpen(false);
+    if (pathname !== "/") return;
+    e.preventDefault();
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+    try {
+      history.replaceState(null, "", "/");
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setThemeState(next);
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      /* ignore */
+    }
+  };
 
   const mobileDrawer =
     mounted &&
@@ -117,10 +160,8 @@ export function Header() {
               <nav className="min-h-0 flex flex-1 flex-col gap-0.5 overflow-y-auto overscroll-contain p-3 pb-10 pt-2">
                 {navItems.map((item) => {
                   const isActive =
-                    item.href === "/"
-                      ? pathname === "/"
-                      : pathname.startsWith(item.href);
-                  const label = t(item.key);
+                    routeSection(pathname) === item.section;
+                  const label = tr(item.key, language);
                   return (
                     <Link
                       key={item.href}
@@ -136,6 +177,17 @@ export function Header() {
                     </Link>
                   );
                 })}
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className={`mt-2 rounded-xl px-4 py-3.5 text-center text-sm uppercase tracking-[0.22em] transition-colors ${
+                    pathname === "/contact"
+                      ? "bg-accent text-white"
+                      : "bg-ink text-page hover:bg-accent hover:text-white"
+                  }`}
+                >
+                  {tr("nav.contact", language)}
+                </Link>
               </nav>
             </motion.aside>
           </motion.div>
@@ -161,23 +213,23 @@ export function Header() {
             </button>
             <Link
               href="/"
-              className="min-w-0 truncate font-display text-lg tracking-[0.18em] md:text-xl"
+              onClick={goHome}
+              className="min-w-0 truncate font-display text-lg font-extrabold tracking-[0.18em] md:text-xl"
             >
-              Somdatt
+              SOM<span className="text-accent">·</span>DATT
             </Link>
           </div>
 
           <nav className="hidden items-center gap-6 text-sm md:flex">
             {navItems.map((item) => {
               const isActive =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href);
-              const label = t(item.key);
+                routeSection(pathname) === item.section;
+              const label = tr(item.key, language);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isActive ? "page" : undefined}
                   className="relative px-1 text-xs uppercase tracking-[0.22em]"
                 >
                   <span className={isActive ? "text-ink" : "text-ink-soft"}>
@@ -192,6 +244,16 @@ export function Header() {
                 </Link>
               );
             })}
+            <Link
+              href="/contact"
+              className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.2em] transition-colors ${
+                pathname === "/contact"
+                  ? "bg-accent text-white"
+                  : "bg-ink text-page hover:bg-accent hover:text-white"
+              }`}
+            >
+              {tr("nav.contact", language)}
+            </Link>
           </nav>
 
           <div className="flex shrink-0 items-center text-[11px] uppercase tracking-[0.18em]">
@@ -199,7 +261,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setLanguage("en")}
-                className={`rounded-full px-2.5 py-1 transition ${
+                className={`hit44 hit44-y inline-flex min-h-9 min-w-10 items-center justify-center rounded-full px-2.5 transition md:min-h-8 ${
                   language === "en"
                     ? "bg-ink text-page"
                     : "text-ink-soft hover:text-ink"
@@ -211,7 +273,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setLanguage("de")}
-                className={`rounded-full px-2.5 py-1 transition ${
+                className={`hit44 hit44-y inline-flex min-h-9 min-w-10 items-center justify-center rounded-full px-2.5 transition md:min-h-8 ${
                   language === "de"
                     ? "bg-ink text-page"
                     : "text-ink-soft hover:text-ink"
@@ -220,6 +282,14 @@ export function Header() {
                 DE
               </button>
             </div>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+              className="ml-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-sand/60 text-sm transition-colors hover:border-ink/30 md:h-9 md:w-9"
+            >
+              {mounted ? (theme === "dark" ? "☀️" : "🌙") : "🌙"}
+            </button>
           </div>
         </div>
       </header>
