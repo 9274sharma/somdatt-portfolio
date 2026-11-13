@@ -31,6 +31,9 @@ export function useModal(open: boolean, ref: RefObject<HTMLElement | null>, onCl
     const opener = document.activeElement as HTMLElement | null;
     const root = ref.current;
     const lenis = getLenis();
+    // A stopped Lenis cancels every wheel/touch event — except inside [data-lenis-prevent].
+    // Mark the dialog so its own scroll areas keep working (touch + wheel).
+    root?.setAttribute("data-lenis-prevent", "");
     lenis?.stop();
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
