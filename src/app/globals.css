@@ -249,8 +249,10 @@ body {
   display: inline-block;
   transition: transform 0.15s ease;
 }
-.hm-btn:hover {
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .hm-btn:hover {
+    transform: translateY(-2px);
+  }
 }
 .hm-btn.solid {
   background: var(--color-accent);
@@ -297,8 +299,10 @@ body {
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.hm-cat:hover img {
-  transform: scale(1.06);
+@media (hover: hover) {
+  .hm-cat:hover img {
+    transform: scale(1.06);
+  }
 }
 .hm-cat::after {
   content: "";
@@ -384,12 +388,14 @@ body {
     border-color 0.35s ease,
     box-shadow 0.4s ease;
 }
-/* hover = colour reverse: card fills accent, content flips to contrast */
+@media (hover: hover) {
+  /* hover = colour reverse: card fills accent, content flips to contrast */
 .hm-svc .c:hover {
-  transform: translateY(-5px);
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  box-shadow: 0 24px 52px rgba(200, 77, 39, 0.32);
+    transform: translateY(-5px);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: 0 24px 52px rgba(200, 77, 39, 0.32);
+  }
 }
 .hm-svc .top {
   display: flex;
@@ -414,10 +420,12 @@ body {
   height: 1.5rem;
   display: block;
 }
-.hm-svc .c:hover .ic {
-  background: #fff;
-  color: var(--color-accent);
-  transform: rotate(-6deg) scale(1.06);
+@media (hover: hover) {
+  .hm-svc .c:hover .ic {
+    background: #fff;
+    color: var(--color-accent);
+    transform: rotate(-6deg) scale(1.06);
+  }
 }
 .hm-svc .n {
   font-family: var(--font-display);
@@ -427,8 +435,10 @@ body {
   color: color-mix(in srgb, var(--color-ink-soft) 75%, transparent);
   transition: color 0.35s ease;
 }
-.hm-svc .c:hover .n {
-  color: rgba(255, 255, 255, 0.78);
+@media (hover: hover) {
+  .hm-svc .c:hover .n {
+    color: rgba(255, 255, 255, 0.78);
+  }
 }
 .hm-svc h3 {
   font-family: var(--font-display);
@@ -438,8 +448,10 @@ body {
   margin: auto 0 0.55rem;
   transition: color 0.35s ease;
 }
-.hm-svc .c:hover h3 {
-  color: #fff;
+@media (hover: hover) {
+  .hm-svc .c:hover h3 {
+    color: #fff;
+  }
 }
 .hm-svc p {
   color: var(--color-ink-soft);
@@ -448,8 +460,10 @@ body {
   line-height: 1.6;
   transition: color 0.35s ease;
 }
-.hm-svc .c:hover p {
-  color: rgba(255, 255, 255, 0.9);
+@media (hover: hover) {
+  .hm-svc .c:hover p {
+    color: rgba(255, 255, 255, 0.9);
+  }
 }
 
 /* events */
@@ -475,8 +489,10 @@ body {
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.hm-ev:hover img {
-  transform: scale(1.06);
+@media (hover: hover) {
+  .hm-ev:hover img {
+    transform: scale(1.06);
+  }
 }
 .hm-ev::after {
   content: "";
@@ -643,8 +659,10 @@ body {
   color: var(--color-ink-soft);
   text-decoration: none;
 }
-.hm-back:hover {
-  color: var(--color-ink);
+@media (hover: hover) {
+  .hm-back:hover {
+    color: var(--color-ink);
+  }
 }
 .hm-alink {
   display: inline-flex;
@@ -656,8 +674,10 @@ body {
   color: var(--color-ink);
   text-decoration: none;
 }
-.hm-alink:hover {
-  color: var(--color-accent);
+@media (hover: hover) {
+  .hm-alink:hover {
+    color: var(--color-accent);
+  }
 }
 
 /* invisible 44px tap area (WCAG target size) without changing how the element looks */
@@ -842,8 +862,10 @@ body {
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.hm-jcard:hover img {
-  transform: scale(1.04);
+@media (hover: hover) {
+  .hm-jcard:hover img {
+    transform: scale(1.04);
+  }
 }
 .hm-jcard .d {
   font-family: var(--font-sans);
@@ -988,9 +1010,11 @@ body {
   opacity: 0.35;
   cursor: default;
 }
-.hm-cell.free:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+@media (hover: hover) {
+  .hm-cell.free:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
 }
 .hm-cell.booked {
   color: var(--color-ink-soft);
@@ -1009,8 +1033,11 @@ body {
   color: var(--color-ink);
   border-radius: 0;
 }
-.hm-cell.sel {
+.hm-cell.sel,
+.hm-cell.sel:hover,
+.hm-cell.sel:focus-visible {
   background: var(--color-accent);
+  border-color: var(--color-accent);
   color: #fff;
 }
 .hm-callegend {
@@ -1060,8 +1087,10 @@ body {
   font-size: 0.88rem;
   text-decoration: none;
 }
-.hm-footlink:hover {
-  color: var(--color-accent);
+@media (hover: hover) {
+  .hm-footlink:hover {
+    color: var(--color-accent);
+  }
 }
 .hm-social {
   display: flex;
@@ -1073,9 +1102,11 @@ body {
   border: 1px solid color-mix(in srgb, var(--color-sand) 60%, transparent);
   color: var(--color-ink-soft);
 }
-.hm-social:hover {
-  color: var(--color-ink);
-  border-color: var(--color-accent);
+@media (hover: hover) {
+  .hm-social:hover {
+    color: var(--color-ink);
+    border-color: var(--color-accent);
+  }
 }
 
 /* prose (legal pages) */
@@ -1170,9 +1201,11 @@ body {
   font-weight: 600;
   gap: 0.5rem;
 }
-.hm-videolink:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+@media (hover: hover) {
+  .hm-videolink:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
 }
 
 /* work filter chips */
@@ -1192,9 +1225,11 @@ body {
   cursor: pointer;
   transition: 0.15s;
 }
-.hm-chip:hover {
-  color: var(--color-ink);
-  border-color: var(--color-ink);
+@media (hover: hover) {
+  .hm-chip:hover {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
 }
 .hm-chip.on {
   background: var(--color-ink);
@@ -1258,8 +1293,10 @@ body {
 .marquee-track {
   animation: marquee 34s linear infinite;
 }
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
+@media (hover: hover) {
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
 }
 .tilt-glare {
   background: radial-gradient(
@@ -1270,8 +1307,10 @@ body {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-.tilt:hover .tilt-glare {
-  opacity: 1;
+@media (hover: hover) {
+  .tilt:hover .tilt-glare {
+    opacity: 1;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .view-in,

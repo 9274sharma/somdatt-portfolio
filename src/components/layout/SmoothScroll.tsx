@@ -13,10 +13,12 @@ export function SmoothScroll({ children }: Props) {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Skip smooth-scroll inside the Studio (it has its own scroll areas).
-    if (pathname?.startsWith("/studio")) return;
+    // Skip smooth-scroll in the Studio and the admin app: both are app-like UIs full of their own
+    // scroll areas (sheets, the week grid…), and Lenis swallows wheel/touch events meant for them.
+    if (pathname?.startsWith("/studio") || pathname?.startsWith("/admin")) return;
 
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    // allowNestedScroll: any inner element that can scroll (a sheet, a list) scrolls natively.
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true, allowNestedScroll: true });
     setLenis(lenis);
     let id = requestAnimationFrame(function raf(time: number) {
       lenis.raf(time);

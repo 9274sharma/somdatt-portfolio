@@ -104,7 +104,15 @@ function analyse(sessions: Session[], venue: string, confirmed: Confirmed[], tra
   const days = sessions.map((d) => analyseDay(d, venue, confirmed, travel, mode));
   const worst = days.reduce<Tone>((w, d) => (RANK[d.worst] > RANK[w] ? d.worst : w), "ok");
   const summary =
-    worst === "clash" ? "✗ Overlaps a confirmed booking" : worst === "bad" ? "✗ Not enough travel time" : worst === "tight" ? "⚠ Tight travel time" : worst === "unknown" ? "? Check travel" : "✓ Fits";
+    worst === "clash"
+      ? "✗ Overlaps a confirmed booking"
+      : worst === "bad"
+        ? "✗ Not enough travel time"
+        : worst === "tight"
+          ? "⚠ Tight travel time"
+          : worst === "unknown"
+            ? "? Check travel"
+            : "✓ Fits";
   return { days, worst, summary, clash: days.some((d) => d.clash.length) };
 }
 
@@ -263,8 +271,7 @@ export function RequestsPanel({
   const { sessions, missing } = useMemo(() => {
     if (!open) return { sessions: [] as Session[], missing: false };
     const dates = dateRange(open.wish.start, open.wish.end);
-    const mk = (date: string, from: T, until: T, extraDays = 0): Session | null =>
-      from === null || until === null ? null : { date, from, until: extraDays * 1440 + until };
+    const mk = (date: string, from: T, until: T, extraDays = 0): Session | null => (from === null || until === null ? null : { date, from, until: extraDays * 1440 + until });
     const list =
       plan === "continuous"
         ? [mk(open.wish.start, cont.from, cont.until, dates.length - 1)]
@@ -370,7 +377,7 @@ export function RequestsPanel({
     const list = emails[langOf(r)].decline;
     // a sensible start: "booked"-style template if that day has other bookings, else the first one
     const booked = bookedText(r.wish, confirmed) ? list.find((x) => x.freeDates) : undefined;
-    setDeclineKey(r.email ? (booked ?? list[0])?.key ?? "none" : "none");
+    setDeclineKey(r.email ? ((booked ?? list[0])?.key ?? "none") : "none");
     setDeclinePreview(false);
     setDeclining(r);
   };
@@ -390,7 +397,8 @@ export function RequestsPanel({
     });
   };
 
-  const btn = "inline-flex min-h-11 items-center rounded-full px-5 text-xs uppercase tracking-[0.16em] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent";
+  const btn =
+    "inline-flex min-h-11 items-center rounded-full px-5 text-xs uppercase tracking-[0.16em] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-accent";
   const ghost = `${btn} border border-ink-soft/40 text-ink-soft hover:text-ink`;
   const sel = "min-h-11 rounded-xl border border-ink-soft/40 bg-page px-2.5 text-sm text-ink focus:border-accent focus:outline-none";
   const timeSelect = (value: T, onChange: (v: T) => void, opts: number[], label: string) => (
@@ -398,7 +406,7 @@ export function RequestsPanel({
       aria-label={label}
       value={value ?? ""}
       onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
-      className={`${sel} ${value === null ? "border-[#c98a0a]/70 text-ink-soft" : ""}`}
+      className={`${sel} w-[7.5rem] shrink-0 ${value === null ? "border-[#c98a0a]/70 text-ink-soft" : ""}`}
     >
       {value === null ? <option value="">Pick…</option> : null}
       {opts.map((t) => (
@@ -515,7 +523,10 @@ export function RequestsPanel({
                   {a.detail ? <span>{a.detail}</span> : null}
                 </p>
                 <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
-                  <Link href={`${base}/bookings/${encodeURIComponent(r.id)}`} className="mr-auto inline-flex min-h-11 items-center text-xs font-semibold text-ink-soft underline underline-offset-4 hover:text-ink">
+                  <Link
+                    href={`${base}/bookings/${encodeURIComponent(r.id)}`}
+                    className="mr-auto inline-flex min-h-11 items-center text-xs font-semibold text-ink-soft underline underline-offset-4 hover:text-ink"
+                  >
                     Details & notes →
                   </Link>
                   <button type="button" onClick={() => openReq(r)} className={`${btn} bg-ink text-page hover:bg-accent hover:text-white`}>
@@ -549,7 +560,7 @@ export function RequestsPanel({
             onClick={(e) => e.stopPropagation()}
             className="view-in flex max-h-[92svh] w-full max-w-[min(44rem,100vw)] flex-col overflow-hidden rounded-t-3xl border border-sand/50 bg-page shadow-2xl sm:rounded-3xl"
           >
-            <div className="min-h-0 flex-1 overflow-y-auto p-5 md:p-7">
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 md:p-7">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent">Set the times & accept</p>
@@ -557,7 +568,7 @@ export function RequestsPanel({
                     {open.name} · {open.type}
                   </h2>
                   <p className="mt-1 text-sm text-ink-soft">
-                    Client asked for: <span className="text-ink">{wishText(open.wish)}</span>
+                    Client asked for: <span className="inline-block text-ink">{wishText(open.wish)}</span>
                   </p>
                   {open.venue ? (
                     <a href={place(open.venue)} target="_blank" rel="noopener noreferrer" className="text-sm text-ink-soft underline underline-offset-2">
@@ -579,7 +590,7 @@ export function RequestsPanel({
               {/* schedule editor */}
               <section className="mt-5 rounded-2xl border border-sand/60 p-4">
                 <p className="text-[11px] uppercase tracking-[0.16em] text-ink-soft">Final schedule</p>
-                <div className="mt-2 inline-flex flex-wrap gap-1 rounded-full border border-sand/50 p-1" role="radiogroup" aria-label="Schedule type">
+                <div className="mt-2 grid grid-cols-3 gap-1 rounded-2xl border border-sand/50 p-1" role="radiogroup" aria-label="Schedule type">
                   {(
                     [
                       ["continuous", "One block"],
@@ -594,7 +605,7 @@ export function RequestsPanel({
                       aria-checked={plan === k}
                       onClick={() => setPlan(k)}
                       disabled={k !== "continuous" && daysBetween(open.wish.start, open.wish.end) === 0}
-                      className={`min-h-10 rounded-full px-4 text-xs font-semibold transition disabled:opacity-35 ${plan === k ? "bg-ink text-page" : "text-ink-soft hover:text-ink"}`}
+                      className={`min-h-11 rounded-xl px-2 text-center text-xs font-semibold leading-tight transition disabled:opacity-35 ${plan === k ? "bg-ink text-page" : "text-ink-soft hover:text-ink"}`}
                     >
                       {label}
                     </button>
@@ -602,35 +613,30 @@ export function RequestsPanel({
                 </div>
 
                 {plan === "continuous" ? (
-                  <div className="mt-3 grid gap-2 text-sm sm:flex sm:flex-wrap sm:items-center">
-                    <div className="flex items-center gap-2">
-                      <span className="w-12 text-ink-soft sm:w-auto">Starts</span>
-                      <span className="min-w-[8.5rem] sm:min-w-0">{fmtDate(open.wish.start)}</span>
-                      {timeSelect(cont.from, (v) => setCont((c) => ({ ...c, from: v })), FROM_OPTS, "Start time")}
-                    </div>
-                    <span aria-hidden className="hidden text-ink-soft sm:inline">
-                      →
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="w-12 text-ink-soft sm:w-auto">Ends</span>
-                      <span className="min-w-[8.5rem] sm:min-w-0">{fmtDate(open.wish.end)}</span>
-                      {timeSelect(cont.until, (v) => setCont((c) => ({ ...c, until: v })), UNTIL_OPTS, "End time")}
-                    </div>
+                  <div className="mt-3 grid grid-cols-[3.25rem_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-2 text-sm">
+                    <span className="text-ink-soft">Starts</span>
+                    <span className="min-w-0 truncate">{fmtDate(open.wish.start)}</span>
+                    {timeSelect(cont.from, (v) => setCont((c) => ({ ...c, from: v })), FROM_OPTS, "Start time")}
+                    <span className="text-ink-soft">Ends</span>
+                    <span className="min-w-0 truncate">{fmtDate(open.wish.end)}</span>
+                    {timeSelect(cont.until, (v) => setCont((c) => ({ ...c, until: v })), UNTIL_OPTS, "End time")}
                   </div>
                 ) : plan === "daily" ? (
-                  <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-                    <span className="text-ink-soft">
-                      Every day, {fmtDate(open.wish.start)} – {fmtDate(open.wish.end)}:
-                    </span>
-                    {timeSelect(daily.from, (v) => setDaily((c) => ({ ...c, from: v })), FROM_OPTS, "From")}
-                    <span aria-hidden>–</span>
-                    {timeSelect(daily.until, (v) => setDaily((c) => ({ ...c, until: v })), UNTIL_OPTS, "Until")}
+                  <div className="mt-3 text-sm">
+                    <p className="text-ink-soft">
+                      Every day, {fmtDate(open.wish.start)} – {fmtDate(open.wish.end)}
+                    </p>
+                    <div className="mt-2 flex items-center gap-2">
+                      {timeSelect(daily.from, (v) => setDaily((c) => ({ ...c, from: v })), FROM_OPTS, "From")}
+                      <span aria-hidden>–</span>
+                      {timeSelect(daily.until, (v) => setDaily((c) => ({ ...c, until: v })), UNTIL_OPTS, "Until")}
+                    </div>
                   </div>
                 ) : (
                   <ul className="mt-3 grid gap-2">
                     {custom.map((d, i) => (
-                      <li key={d.date} className="flex flex-wrap items-center gap-2 text-sm">
-                        <label className="flex min-h-11 min-w-[9.5rem] items-center gap-2">
+                      <li key={d.date} className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-sand/40 pb-2 text-sm last:border-0 last:pb-0">
+                        <label className="flex min-h-11 w-full items-center gap-2 sm:w-[9.5rem]">
                           <input
                             type="checkbox"
                             checked={d.on}
@@ -640,7 +646,7 @@ export function RequestsPanel({
                           {fmtDate(d.date)}
                         </label>
                         {d.on ? (
-                          <span className="flex items-center gap-2">
+                          <span className="flex flex-wrap items-center gap-2 pl-7 sm:pl-0">
                             {timeSelect(d.from, (v) => setCustom((xs) => xs.map((x, k) => (k === i ? { ...x, from: v } : x))), FROM_OPTS, `From, ${fmtDate(d.date)}`)}
                             <span aria-hidden>–</span>
                             {timeSelect(d.until, (v) => setCustom((xs) => xs.map((x, k) => (k === i ? { ...x, until: v } : x))), UNTIL_OPTS, `Until, ${fmtDate(d.date)}`)}
@@ -678,9 +684,7 @@ export function RequestsPanel({
               </section>
 
               {outside.length ? (
-                <p className="mt-3 rounded-xl border border-[#c98a0a]/50 bg-[#c98a0a]/10 px-3 py-2 text-xs text-ink">
-                  Heads-up: {outside.join("; ")}. Fine if you agreed on it.
-                </p>
+                <p className="mt-3 rounded-xl border border-[#c98a0a]/50 bg-[#c98a0a]/10 px-3 py-2 text-xs text-ink">Heads-up: {outside.join("; ")}. Fine if you agreed on it.</p>
               ) : null}
 
               {/* travel / clash check on the final schedule */}
@@ -693,7 +697,8 @@ export function RequestsPanel({
                   ) : null}
                   {d.clash.length ? (
                     <div role="alert" className="rounded-2xl border border-danger/50 bg-danger/10 p-4 text-sm text-ink">
-                      <b>Overlaps</b> with {d.clash.map((c) => `${c.label} (${fmtDate(c.date)}, ${span(c.from, c.until)})`).join("; ")} — change the times above or reply to the client.
+                      <b>Overlaps</b> with {d.clash.map((c) => `${c.label} (${fmtDate(c.date)}, ${span(c.from, c.until)})`).join("; ")} — change the times above or reply to the
+                      client.
                     </div>
                   ) : (
                     <div className="grid gap-3">
@@ -709,6 +714,78 @@ export function RequestsPanel({
                   )}
                 </section>
               ))}
+
+              {/* private notes */}
+              <section className="mt-5">
+                <label htmlFor="bk-notes" className="text-[11px] uppercase tracking-[0.16em] text-ink-soft">
+                  Add a note — only you see it
+                </label>
+                {open.notes ? (
+                  <p className="mt-1 text-xs text-ink-soft">
+                    Latest note{open.noteCount && open.noteCount > 1 ? ` (of ${open.noteCount})` : ""}: <span className="text-ink">{open.notes}</span>
+                  </p>
+                ) : null}
+                <textarea
+                  id="bk-notes"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  rows={3}
+                  placeholder="e.g. 30% deposit received · bring the drone · bride's sister: +49 …"
+                  className="mt-1 w-full rounded-xl border border-ink-soft/40 bg-transparent px-3 py-2.5 text-sm text-ink placeholder:text-ink-soft/60 focus:border-accent focus:outline-none"
+                />
+              </section>
+
+              <section className="mt-5 grid gap-3 rounded-2xl border border-sand/60 p-4 text-sm text-ink">
+                <p className="text-[11px] uppercase tracking-[0.16em] text-ink-soft">When you accept</p>
+                <label className="flex min-h-11 items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={toCalendar}
+                    onChange={(e) => setToCalendar(e.target.checked)}
+                    disabled={!calendarConnected}
+                    className="h-5 w-5 accent-[var(--color-accent)]"
+                  />
+                  Add to Google Calendar (with your notes)
+                  {!calendarConnected ? <span className="text-xs text-ink-soft">— not connected yet</span> : null}
+                </label>
+                <label className="flex min-h-11 items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={emailClient}
+                    onChange={(e) => setEmailClient(e.target.checked)}
+                    disabled={!open.email}
+                    className="h-5 w-5 accent-[var(--color-accent)]"
+                  />
+                  Email the client
+                </label>
+                {emailClient && open.email ? (
+                  <div className="grid gap-1 pl-8">
+                    <div className="flex items-center gap-2">
+                      <select
+                        aria-label="Confirmation template"
+                        value={confirmKey}
+                        onChange={(e) => setConfirmKey(e.target.value)}
+                        className="min-h-11 min-w-0 flex-1 rounded-xl border border-ink-soft/40 bg-page px-2.5 text-sm text-ink focus:border-accent focus:outline-none"
+                      >
+                        {emails[langOf(open)].confirm.map((x) => (
+                          <option key={x.key} value={x.key}>
+                            {x.name}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        type="button"
+                        onClick={() => setPreview((v) => !v)}
+                        aria-expanded={preview}
+                        className="min-h-11 px-1 text-xs text-ink-soft underline underline-offset-2 hover:text-ink"
+                      >
+                        {preview ? "Hide preview" : "Preview"}
+                      </button>
+                    </div>
+                    <span className="text-xs text-ink-soft">{langOf(open) === "de" ? "in German" : "in English"} · edit in Studio → Booking settings</span>
+                  </div>
+                ) : null}
+              </section>
 
               {preview && emailClient && open.email && !invalid ? (
                 <section className="mt-5">
@@ -732,79 +809,16 @@ export function RequestsPanel({
                   })()}
                 </section>
               ) : null}
-
-              {/* private notes */}
-              <section className="mt-5">
-                <label htmlFor="bk-notes" className="text-[11px] uppercase tracking-[0.16em] text-ink-soft">
-                  Add a note — only you see it
-                </label>
-                {open.notes ? (
-                  <p className="mt-1 text-xs text-ink-soft">
-                    Latest note{open.noteCount && open.noteCount > 1 ? ` (of ${open.noteCount})` : ""}: <span className="text-ink">{open.notes}</span>
-                  </p>
-                ) : null}
-                <textarea
-                  id="bk-notes"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  rows={3}
-                  placeholder="e.g. 30% deposit received · bring the drone · bride's sister: +49 …"
-                  className="mt-1 w-full rounded-xl border border-ink-soft/40 bg-transparent px-3 py-2.5 text-sm text-ink placeholder:text-ink-soft/60 focus:border-accent focus:outline-none"
-                />
-              </section>
             </div>
 
-            <div className="border-t border-sand/60 bg-page px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 md:px-7">
-              <div className="mb-3 grid gap-2 text-sm text-ink">
-                <label className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    checked={toCalendar}
-                    onChange={(e) => setToCalendar(e.target.checked)}
-                    disabled={!calendarConnected}
-                    className="h-5 w-5 accent-[var(--color-accent)]"
-                  />
-                  Add to Google Calendar (with your notes)
-                  {!calendarConnected ? <span className="text-xs text-ink-soft">— not connected yet</span> : null}
-                </label>
-                <label className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    checked={emailClient}
-                    onChange={(e) => setEmailClient(e.target.checked)}
-                    disabled={!open.email}
-                    className="h-5 w-5 accent-[var(--color-accent)]"
-                  />
-                  Email the client
-                </label>
-                {emailClient && open.email ? (
-                  <div className="flex flex-wrap items-center gap-2 pl-8">
-                    <select
-                      aria-label="Confirmation template"
-                      value={confirmKey}
-                      onChange={(e) => setConfirmKey(e.target.value)}
-                      className="min-h-11 max-w-full rounded-xl border border-ink-soft/40 bg-page px-2.5 text-sm text-ink focus:border-accent focus:outline-none"
-                    >
-                      {emails[langOf(open)].confirm.map((x) => (
-                        <option key={x.key} value={x.key}>
-                          {x.name}
-                        </option>
-                      ))}
-                    </select>
-                    <button type="button" onClick={() => setPreview((v) => !v)} aria-expanded={preview} className="min-h-11 px-1 text-xs text-ink-soft underline underline-offset-2 hover:text-ink">
-                      {preview ? "Hide preview" : "Preview"}
-                    </button>
-                    <span className="text-xs text-ink-soft">{langOf(open) === "de" ? "in German" : "in English"} · edit in Studio → Booking settings</span>
-                  </div>
-                ) : null}
-              </div>
+            <div className="border-t border-sand/60 bg-page px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 md:px-7 md:pt-4">
               <div className="flex flex-wrap items-center justify-end gap-2">
                 {error || problem || ctx?.clash ? (
                   <p role="status" className="w-full text-xs text-danger sm:mr-auto sm:w-auto">
                     {error ?? problem ?? "Change the times so nothing overlaps."}
                   </p>
                 ) : null}
-                <button type="button" onClick={close} className={ghost}>
+                <button type="button" onClick={close} className={`${ghost} justify-center`}>
                   Not now
                 </button>
                 <button
@@ -812,7 +826,7 @@ export function RequestsPanel({
                   onClick={accept}
                   disabled={busy || invalid || Boolean(ctx?.clash)}
                   aria-busy={busy}
-                  className={`${btn} bg-accent text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40`}
+                  className={`${btn} flex-1 justify-center bg-accent text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none`}
                 >
                   Accept & block
                 </button>
@@ -830,39 +844,55 @@ export function RequestsPanel({
             aria-modal="true"
             aria-label={`Decline ${declining.name}`}
             onClick={(e) => e.stopPropagation()}
-            className="view-in max-h-[92svh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-sand/50 bg-page p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl md:p-7"
+            className="view-in max-h-[92svh] w-full max-w-lg overflow-y-auto overscroll-contain rounded-t-3xl border border-sand/50 bg-page p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl md:p-7"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-danger">Decline</p>
-            <h2 className="mt-1 font-display text-2xl font-bold">{declining.name}</h2>
-            <p className="mt-1 text-sm text-ink-soft">{wishText(declining.wish)}</p>
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-xs uppercase tracking-[0.2em] text-danger">Decline</p>
+                <h2 className="mt-1 font-display text-2xl font-bold">{declining.name}</h2>
+                <p className="mt-1 text-sm text-ink-soft">{wishText(declining.wish)}</p>
+              </div>
+              <button
+                type="button"
+                onClick={closeDecline}
+                aria-label="Close"
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-sand/60 text-xl text-ink-soft hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                ×
+              </button>
+            </div>
             <fieldset className="mt-5">
-              <legend className="text-[11px] uppercase tracking-[0.16em] text-ink-soft">
-                Email the client {langOf(declining) === "de" ? "(in German)" : "(in English)"}
-              </legend>
+              <legend className="text-[11px] uppercase tracking-[0.16em] text-ink-soft">Email the client {langOf(declining) === "de" ? "(in German)" : "(in English)"}</legend>
               <div className="mt-2 grid gap-1">
-                {[...emails[langOf(declining)].decline.map((x) => ({ key: x.key, label: x.name, hint: x.freeDates ? "with “See free dates”" : x.heading })), { key: "none", label: "Don't email", hint: "Just remove it (e.g. spam)" }].map(
-                  (o) => (
-                    <label key={o.key} className="flex min-h-11 cursor-pointer items-center gap-3 rounded-xl px-2 text-sm hover:bg-sand/20">
-                      <input
-                        type="radio"
-                        name="decline-template"
-                        checked={declineKey === o.key}
-                        disabled={o.key !== "none" && !declining.email}
-                        onChange={() => setDeclineKey(o.key)}
-                        className="h-5 w-5 accent-[var(--color-accent)]"
-                      />
-                      <span className="min-w-0">
-                        {o.label}
-                        <span className="block truncate text-xs text-ink-soft">{o.hint}</span>
-                      </span>
-                    </label>
-                  ),
-                )}
+                {[
+                  ...emails[langOf(declining)].decline.map((x) => ({ key: x.key, label: x.name, hint: x.freeDates ? "with “See free dates”" : x.heading })),
+                  { key: "none", label: "Don't email", hint: "Just remove it (e.g. spam)" },
+                ].map((o) => (
+                  <label key={o.key} className="flex min-h-11 cursor-pointer items-center gap-3 rounded-xl px-2 text-sm hover:bg-sand/20">
+                    <input
+                      type="radio"
+                      name="decline-template"
+                      checked={declineKey === o.key}
+                      disabled={o.key !== "none" && !declining.email}
+                      onChange={() => setDeclineKey(o.key)}
+                      className="h-5 w-5 accent-[var(--color-accent)]"
+                    />
+                    <span className="min-w-0">
+                      {o.label}
+                      <span className="block truncate text-xs text-ink-soft">{o.hint}</span>
+                    </span>
+                  </label>
+                ))}
               </div>
             </fieldset>
             <p className="mt-1 text-xs text-ink-soft">Add or change these in Studio → Bookings → Booking settings → Decline emails.</p>
             {declineKey !== "none" ? (
-              <button type="button" onClick={() => setDeclinePreview((v) => !v)} aria-expanded={declinePreview} className="mt-1 min-h-11 text-xs text-ink-soft underline underline-offset-2 hover:text-ink">
+              <button
+                type="button"
+                onClick={() => setDeclinePreview((v) => !v)}
+                aria-expanded={declinePreview}
+                className="mt-1 min-h-11 text-xs text-ink-soft underline underline-offset-2 hover:text-ink"
+              >
                 {declinePreview ? "Hide preview" : "Preview the email"}
               </button>
             ) : null}
@@ -893,7 +923,10 @@ export function RequestsPanel({
       ) : null}
 
       {toast ? (
-        <div role="status" className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-[130] w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-full bg-ink px-5 py-3 text-sm text-page shadow-2xl">
+        <div
+          role="status"
+          className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 z-[130] w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-full bg-ink px-5 py-3 text-sm text-page shadow-2xl"
+        >
           {toast}
         </div>
       ) : null}

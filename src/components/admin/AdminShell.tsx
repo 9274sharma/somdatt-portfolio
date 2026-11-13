@@ -123,7 +123,11 @@ export function AdminShell({
                 >
                   <Icon d={n.icon} />
                   <span className="flex-1">{n.label}</span>
-                  {b ? <span className={`min-w-6 rounded-full px-1.5 text-center text-[11px] font-bold leading-6 ${on ? "bg-accent text-white" : "bg-accent/15 text-accent"}`}>{b}</span> : null}
+                  {b ? (
+                    <span className={`min-w-6 rounded-full px-1.5 text-center text-[11px] font-bold leading-6 ${on ? "bg-accent text-white" : "bg-accent/15 text-accent"}`}>
+                      {b}
+                    </span>
+                  ) : null}
                 </Link>
               );
             })}
@@ -184,7 +188,9 @@ export function AdminShell({
                 <span className="relative">
                   <Icon d={n.icon} className="h-6 w-6" />
                   {b ? (
-                    <span className="absolute -right-2.5 -top-1.5 min-w-[1.15rem] rounded-full bg-accent px-1 text-center text-[10px] font-bold leading-[1.15rem] text-white">{b}</span>
+                    <span className="absolute -right-2.5 -top-1.5 min-w-[1.15rem] rounded-full bg-accent px-1 text-center text-[10px] font-bold leading-[1.15rem] text-white">
+                      {b}
+                    </span>
                   ) : null}
                 </span>
                 {n.short}
@@ -256,7 +262,7 @@ function Sheet({ label, onClose, children }: { label: string; onClose: () => voi
         aria-modal="true"
         aria-label={label}
         onClick={(e) => e.stopPropagation()}
-        className="view-in w-full max-w-md rounded-t-3xl border border-sand/50 bg-page p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl md:p-6"
+        className="view-in max-h-[92svh] w-full max-w-md overflow-y-auto overscroll-contain rounded-t-3xl border border-sand/50 bg-page p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl md:p-6"
       >
         {children}
       </div>
@@ -270,7 +276,13 @@ function MoreSheet({ base, user, onClose }: { base: string; user: string; onClos
     <Sheet label="More" onClose={onClose}>
       <div className="mb-2 flex items-center justify-between">
         <p className="text-xs uppercase tracking-[0.2em] text-ink-soft">More</p>
-        <button type="button" data-autofocus onClick={onClose} aria-label="Close" className="grid h-11 w-11 place-items-center rounded-full border border-sand/60 text-xl text-ink-soft">
+        <button
+          type="button"
+          data-autofocus
+          onClick={onClose}
+          aria-label="Close"
+          className="grid h-11 w-11 place-items-center rounded-full border border-sand/60 text-xl text-ink-soft"
+        >
           ×
         </button>
       </div>
@@ -302,7 +314,12 @@ function AskSheet({ a, onAnswer }: { a: Ask; onAnswer: (v: boolean) => void }) {
       <h2 className="font-display text-2xl font-bold">{a.title}</h2>
       {a.body ? <p className="mt-2 text-sm text-ink-soft">{a.body}</p> : null}
       <div className="mt-6 flex flex-wrap justify-end gap-2">
-        <button type="button" data-autofocus onClick={() => onAnswer(false)} className="inline-flex min-h-11 items-center rounded-full border border-sand/70 px-5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft hover:text-ink">
+        <button
+          type="button"
+          data-autofocus
+          onClick={() => onAnswer(false)}
+          className="inline-flex min-h-11 items-center rounded-full border border-sand/70 px-5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft hover:text-ink"
+        >
           Keep it
         </button>
         <button
@@ -377,113 +394,127 @@ function AddBookingDialog({ eventTypes, onClose, onDone }: { eventTypes: string[
         aria-modal="true"
         aria-label="New booking"
         onClick={(e) => e.stopPropagation()}
-        className="view-in max-h-[92svh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-sand/50 bg-page p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-2xl sm:rounded-3xl md:p-8"
+        className="view-in flex max-h-[92svh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border border-sand/50 bg-page shadow-2xl sm:rounded-3xl"
       >
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="font-display text-2xl font-bold">New booking</h2>
-          <button type="button" data-autofocus onClick={onClose} aria-label="Close" className="grid h-11 w-11 place-items-center rounded-full border border-sand/60 text-xl text-ink-soft hover:text-ink">
-            ×
-          </button>
-        </div>
-        <p className="mb-5 text-sm text-ink-soft">For clients who booked by phone or WhatsApp — confirmed straight away. No email is sent.</p>
-        <form
-          ref={formRef}
-          onSubmit={(e) => {
-            e.preventDefault();
-            void save(false);
-          }}
-          onChange={() => {
-            setClash(null);
-            setError(null);
-          }}
-          className="grid gap-4"
-        >
-          <label className={labelCls}>
-            Client
-            <input name="client" required className={inputCls} placeholder="e.g. Priya & Arjun" />
-          </label>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label className={labelCls}>
-              First day
-              <input type="date" name="startDate" required className={inputCls} />
-            </label>
-            <label className={labelCls}>
-              Last day <span className="normal-case tracking-normal">(empty = one day)</span>
-              <input type="date" name="endDate" className={inputCls} />
-            </label>
-            <label className={labelCls}>
-              From
-              <input type="time" name="from" step={1800} className={inputCls} />
-            </label>
-            <label className={labelCls}>
-              Until
-              <input type="time" name="until" step={1800} className={inputCls} />
-            </label>
-          </div>
-          <p className="-mt-2 text-xs text-ink-soft">Empty times = whole day(s). An “until” earlier than “from” means the next morning.</p>
-          <label className={labelCls}>
-            Event type
-            <select value={type} onChange={(e) => setType(e.target.value)} name="eventType" className={`${inputCls} bg-page`}>
-              {eventTypes.map((t) => (
-                <option key={t}>{t}</option>
-              ))}
-              <option value="__other">Other…</option>
-            </select>
-          </label>
-          {type === "__other" ? (
-            <label className={labelCls}>
-              What kind of event?
-              <input name="eventOther" required className={inputCls} placeholder="e.g. Baby shower" />
-            </label>
-          ) : null}
-          <label className={labelCls}>
-            Venue
-            <input name="venue" className={inputCls} placeholder="Address or district" />
-          </label>
-          <label className={labelCls}>
-            Client email <span className="normal-case tracking-normal">(optional — for emails later)</span>
-            <input name="email" type="email" className={inputCls} />
-          </label>
-          <label className={labelCls}>
-            First note — only you see it
-            <textarea name="notes" rows={3} className={`${inputCls} min-h-24`} placeholder="Package, deposit, contact person…" />
-          </label>
-          {error ? (
-            <div role="alert" className="rounded-2xl border border-danger/50 bg-danger/10 px-4 py-3 text-sm">
-              <b>{error}</b>
-              {clash?.length ? (
-                <ul className="mt-1 list-disc pl-5 text-ink-soft">
-                  {clash.map((c) => (
-                    <li key={c}>{c}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-          ) : null}
-          <div className="mt-1 flex flex-wrap justify-end gap-2">
-            <button type="button" onClick={onClose} className="inline-flex min-h-11 items-center rounded-full border border-sand/60 px-5 text-xs uppercase tracking-[0.16em] text-ink-soft hover:text-ink">
-              Cancel
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 md:p-8">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="font-display text-2xl font-bold">New booking</h2>
+            <button
+              type="button"
+              data-autofocus
+              onClick={onClose}
+              aria-label="Close"
+              className="grid h-11 w-11 place-items-center rounded-full border border-sand/60 text-xl text-ink-soft hover:text-ink"
+            >
+              ×
             </button>
-            {clash?.length ? (
-              <button
-                type="button"
-                disabled={saving}
-                onClick={() => void save(true)}
-                className="inline-flex min-h-11 items-center rounded-full bg-danger px-5 text-xs uppercase tracking-[0.16em] text-white hover:opacity-90 disabled:opacity-60"
-              >
-                Book anyway
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={saving}
-                className="inline-flex min-h-11 items-center rounded-full bg-ink px-5 text-xs uppercase tracking-[0.18em] text-page transition hover:bg-accent hover:text-white disabled:opacity-60"
-              >
-                {saving ? "Saving…" : "Add booking"}
-              </button>
-            )}
           </div>
-        </form>
+          <p className="mb-5 text-sm text-ink-soft">For clients who booked by phone or WhatsApp — confirmed straight away. No email is sent.</p>
+          <form
+            id="add-booking-form"
+            ref={formRef}
+            onSubmit={(e) => {
+              e.preventDefault();
+              void save(false);
+            }}
+            onChange={() => {
+              setClash(null);
+              setError(null);
+            }}
+            className="grid gap-4"
+          >
+            <label className={labelCls}>
+              Client
+              <input name="client" required className={inputCls} placeholder="e.g. Priya & Arjun" />
+            </label>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <label className={labelCls}>
+                First day
+                <input type="date" name="startDate" required className={inputCls} />
+              </label>
+              <label className={labelCls}>
+                Last day
+                <input type="date" name="endDate" className={inputCls} />
+              </label>
+              <label className={labelCls}>
+                From
+                <input type="time" name="from" step={1800} className={inputCls} />
+              </label>
+              <label className={labelCls}>
+                Until
+                <input type="time" name="until" step={1800} className={inputCls} />
+              </label>
+            </div>
+            <p className="-mt-2 text-xs text-ink-soft">One day? Leave “Last day” empty. No times = whole day(s). An “until” earlier than “from” means the next morning.</p>
+            <label className={labelCls}>
+              Event type
+              <select value={type} onChange={(e) => setType(e.target.value)} name="eventType" className={`${inputCls} bg-page`}>
+                {eventTypes.map((t) => (
+                  <option key={t}>{t}</option>
+                ))}
+                <option value="__other">Other…</option>
+              </select>
+            </label>
+            {type === "__other" ? (
+              <label className={labelCls}>
+                What kind of event?
+                <input name="eventOther" required className={inputCls} placeholder="e.g. Baby shower" />
+              </label>
+            ) : null}
+            <label className={labelCls}>
+              Venue
+              <input name="venue" className={inputCls} placeholder="Address or district" />
+            </label>
+            <label className={labelCls}>
+              Client email <span className="normal-case tracking-normal">(optional — for emails later)</span>
+              <input name="email" type="email" className={inputCls} />
+            </label>
+            <label className={labelCls}>
+              First note — only you see it
+              <textarea name="notes" rows={3} className={`${inputCls} min-h-24`} placeholder="Package, deposit, contact person…" />
+            </label>
+            {error ? (
+              <div role="alert" className="rounded-2xl border border-danger/50 bg-danger/10 px-4 py-3 text-sm">
+                <b>{error}</b>
+                {clash?.length ? (
+                  <ul className="mt-1 list-disc pl-5 text-ink-soft">
+                    {clash.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ) : null}
+          </form>
+        </div>
+        <div className="flex gap-2 border-t border-sand/60 bg-page px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 md:px-8">
+          <button
+            type="button"
+            onClick={onClose}
+            className="inline-flex min-h-11 items-center rounded-full border border-sand/60 px-5 text-xs uppercase tracking-[0.16em] text-ink-soft hover:text-ink"
+          >
+            Cancel
+          </button>
+          {clash?.length ? (
+            <button
+              type="button"
+              disabled={saving}
+              onClick={() => void save(true)}
+              className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-danger px-5 text-xs uppercase tracking-[0.16em] text-white hover:opacity-90 disabled:opacity-60 sm:ml-auto sm:flex-none"
+            >
+              Book anyway
+            </button>
+          ) : (
+            <button
+              type="submit"
+              form="add-booking-form"
+              disabled={saving}
+              className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-ink px-5 text-xs uppercase tracking-[0.18em] text-page transition hover:bg-accent hover:text-white disabled:opacity-60 sm:ml-auto sm:flex-none"
+            >
+              {saving ? "Saving…" : "Add booking"}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
