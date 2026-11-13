@@ -1,17 +1,24 @@
-const LINKEDIN_URL = "https://www.linkedin.com/in/somdatt-sharma-creator/";
-const INSTAGRAM_URL = "https://www.instagram.com/oneclickstudi_01";
-const EMAIL = "somdattaatre@gmail.com";
-const PHONE_DISPLAY = "+49 1525 342 7924";
-const PHONE_TEL = "+4915253427924";
+"use client";
+
+import Link from "next/link";
+import { useLanguage } from "@/components/i18n/LanguageProvider";
+import { pick, tr, type LocaleField } from "@/i18n/messages";
+
+/** Everything in the footer comes from Studio → Site settings (with built-in fallbacks). */
+export type FooterData = {
+  email?: string;
+  phone?: string;
+  instagram?: string;
+  linkedin?: string;
+  tagline?: LocaleField;
+  contactHeading?: LocaleField;
+  legalHeading?: LocaleField;
+  copyright?: LocaleField;
+};
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden
-    >
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   );
@@ -19,75 +26,103 @@ function LinkedInIcon({ className }: { className?: string }) {
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden
-    >
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
     </svg>
   );
 }
 
-export function Footer() {
+export function Footer({ data }: { data: FooterData }) {
+  const { language } = useLanguage();
   const year = new Date().getFullYear();
+  const EMAIL = data.email || "somdattaatre@gmail.com";
+  const PHONE_DISPLAY = data.phone || "";
+  const PHONE_TEL = PHONE_DISPLAY.replace(/[^+\d]/g, "");
+  const LINKEDIN_URL = data.linkedin;
+  const INSTAGRAM_URL = data.instagram;
+  const copyright = (pick(data.copyright, language) || "© {year} Somdatt Sharma. All rights reserved.").replace("{year}", String(year));
 
   return (
-    <footer className="border-t border-sand/40 bg-page">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-8 text-xs text-ink-soft md:flex-row md:items-center md:justify-between md:gap-8 md:px-8">
-        <div className="space-y-1">
-          <p className="font-display text-sm uppercase tracking-[0.2em] text-ink">
-            Somdatt Sharma
-          </p>
-          <p>Visual content creator · Hamburg / India</p>
-        </div>
-        <div className="flex flex-wrap items-start gap-8 md:gap-10">
-          <div className="space-y-1.5">
-            <p className="font-medium text-ink">Contact</p>
+    <footer
+      id="site-footer"
+      style={{
+        borderTop: "1px solid color-mix(in srgb, var(--color-sand) 60%, transparent)",
+      }}
+    >
+      <div className="hm-wrap" style={{ paddingBlock: "2.5rem 3rem" }}>
+        <div className="hm-footgrid">
+          <div>
+            <div
+              className="font-display"
+              style={{ fontWeight: 800, letterSpacing: "0.16em", fontSize: "1.3rem" }}
+            >
+              SOM<span style={{ color: "var(--color-accent)" }}>·</span>DATT
+            </div>
+            <p
+              style={{
+                color: "var(--color-ink-soft)",
+                fontSize: "0.88rem",
+                marginTop: "0.5rem",
+                maxWidth: "24rem",
+              }}
+            >
+              {pick(data.tagline, language) || tr("foot.tagline", language)}
+            </p>
+          </div>
+
+          <div>
+            <p className="hm-foothead">{pick(data.contactHeading, language) || tr("foot.contact", language)}</p>
             <p>
-              <a
-                href={`mailto:${EMAIL}`}
-                className="transition-colors hover:text-ink"
-              >
+              <a className="hm-footlink" href={`mailto:${EMAIL}`}>
                 {EMAIL}
               </a>
             </p>
+            {PHONE_DISPLAY ? (
+              <p>
+                <a className="hm-footlink" href={`tel:${PHONE_TEL}`}>
+                  {PHONE_DISPLAY}
+                </a>
+              </p>
+            ) : null}
+            {LINKEDIN_URL || INSTAGRAM_URL ? (
+              <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.8rem" }}>
+                {LINKEDIN_URL ? (
+                  <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hm-social">
+                    <LinkedInIcon className="h-5 w-5" />
+                  </a>
+                ) : null}
+                {INSTAGRAM_URL ? (
+                  <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hm-social">
+                    <InstagramIcon className="h-5 w-5" />
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+
+          <div>
+            <p className="hm-foothead">{pick(data.legalHeading, language) || tr("foot.legal", language)}</p>
             <p>
-              <a
-                href={`tel:${PHONE_TEL}`}
-                className="transition-colors hover:text-ink"
-              >
-                {PHONE_DISPLAY}
-              </a>
+              <Link className="hm-footlink" href="/impressum">
+                Impressum
+              </Link>
+            </p>
+            <p>
+              <Link className="hm-footlink" href="/datenschutz">
+                Datenschutz
+              </Link>
             </p>
           </div>
-          <div className="space-y-2">
-            <p className="font-medium text-ink">Social</p>
-            <div className="flex items-center gap-2">
-              <a
-                href={LINKEDIN_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Somdatt Sharma on LinkedIn"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-sand/60 text-ink-soft transition-colors hover:border-ink/30 hover:text-ink"
-              >
-                <LinkedInIcon className="h-5 w-5" />
-              </a>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="One Click Studio on Instagram"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-sand/60 text-ink-soft transition-colors hover:border-ink/30 hover:text-ink"
-              >
-                <InstagramIcon className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
         </div>
-        <p className="text-[11px] text-ink-soft md:text-right">
-          © {year} Somdatt Sharma. All rights reserved.
+
+        <p
+          style={{
+            color: "var(--color-ink-soft)",
+            fontSize: "0.75rem",
+            marginTop: "2rem",
+          }}
+        >
+          {copyright}
         </p>
       </div>
     </footer>

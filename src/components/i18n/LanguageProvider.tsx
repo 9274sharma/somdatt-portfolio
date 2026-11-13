@@ -3,10 +3,10 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useState,
   type ReactNode,
 } from "react";
+import { useRouter } from "next/navigation";
 
 export type Language = "en" | "de";
 
@@ -19,20 +19,35 @@ const LanguageContext = createContext<LanguageContextValue | undefined>(
   undefined,
 );
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") return "en";
-    const stored = window.localStorage.getItem("somdatt-lang");
-    if (stored === "en" || stored === "de") {
-      return stored;
-    }
-    return "en";
-  });
+function readCookie(): Language {
+  if (typeof document === "undefined") return "en";
+  const m = document.cookie.match(/(?:^|;\s*)lang=(en|de)/);
+  return m ? (m[1] as Language) : "en";
+}
 
-  useEffect(() => {
-    document.documentElement.lang = language;
-    window.localStorage.setItem("somdatt-lang", language);
-  }, [language]);
+export function LanguageProvider({
+  children,
+  initial,
+}: {
+  children: ReactNode;
+  initial?: Language;
+}) {
+  const router = useRouter();
+  const [language, setLanguageState] = useState<Language>(
+    initial ?? readCookie(),
+  );
+
+  function setLanguage(next: Language) {
+    setLanguageState(next);
+    try {
+      document.cookie = `lang=${next};path=/;max-age=31536000;samesite=lax`;
+      document.documentElement.lang = next;
+    } catch {
+      /* ignore */
+    }
+    // Re-render server components (Sanity content) in the new language.
+    router.refresh();
+  }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
@@ -48,4 +63,3 @@ export function useLanguage() {
   }
   return ctx;
 }
-
