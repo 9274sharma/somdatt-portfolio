@@ -49,7 +49,8 @@ export function Footer({ data }: { data: FooterData }) {
         borderTop: "1px solid color-mix(in srgb, var(--color-sand) 60%, transparent)",
       }}
     >
-      <div className="hm-wrap" style={{ paddingBlock: "2.5rem 3rem" }}>
+      {/* phones: extra room at the very end so the last line scrolls clear of the WhatsApp bubble */}
+      <div className="hm-wrap max-md:[--foot-pb:6.5rem]" style={{ paddingTop: "2.5rem", paddingBottom: "var(--foot-pb, 3rem)" }}>
         <div className="hm-footgrid">
           <div>
             <div

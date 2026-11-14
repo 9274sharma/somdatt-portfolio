@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useLanguage } from "@/components/i18n/LanguageProvider";
 
 const COPY = {
@@ -14,31 +13,16 @@ const COPY = {
   },
 } as const;
 
-/** Floating "chat on WhatsApp" button (bottom right) — a plain wa.me link, no third-party script.
- *  Number comes from Studio → Site settings → WhatsApp number. It lifts above the phone bottom bars
- *  (contact "Send request", project "Book" pill — they carry [data-bottom-bar="on"]) and steps aside
- *  while the footer's last row is on screen, so it never covers Impressum / Datenschutz. */
+/** Floating "chat on WhatsApp" button — always visible, bottom right, on every website page.
+ *  A plain wa.me link (no third-party script); number from Studio → Site settings → WhatsApp number.
+ *  Its position is set right on the element (not in a stylesheet) so it can never end up elsewhere.
+ *  On phones it lifts above the bottom bars that carry [data-bottom-bar="on"] (contact "Send request",
+ *  project "Book" pill) via the --wa-lift variable set in globals.css. */
 export function WhatsAppBubble({ number }: { number?: string }) {
   const { language } = useLanguage();
-  const [ready, setReady] = useState(false);
-  const [atFooter, setAtFooter] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setReady(true), 1200);
-    const end = document.querySelector("#site-footer > :last-child") ?? document.getElementById("site-footer");
-    if (!end) return () => clearTimeout(t);
-    const io = new IntersectionObserver(([e]) => setAtFooter(Boolean(e?.isIntersecting)), { threshold: 0 });
-    io.observe(end);
-    return () => {
-      clearTimeout(t);
-      io.disconnect();
-    };
-  }, []);
-
   const digits = (number ?? "").replace(/\D/g, "");
   if (digits.length < 8) return null;
   const t = COPY[language === "de" ? "de" : "en"];
-  const show = ready && !atFooter;
 
   return (
     <a
@@ -46,11 +30,12 @@ export function WhatsAppBubble({ number }: { number?: string }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.label}
-      tabIndex={show ? 0 : -1}
-      aria-hidden={!show}
-      className={`wa-bubble group fixed z-[45] flex h-14 items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-8px_rgba(0,0,0,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#25D366] ${
-        show ? "opacity-100" : "pointer-events-none translate-y-3 scale-90 opacity-0"
-      }`}
+      style={{
+        position: "fixed",
+        right: "max(var(--wa-gap, 1rem), env(safe-area-inset-right, 0px))",
+        bottom: "calc(max(var(--wa-gap, 1rem), env(safe-area-inset-bottom, 0px)) + var(--wa-lift, 0px))",
+      }}
+      className="wa-bubble group z-[45] flex h-14 items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-8px_rgba(0,0,0,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#25D366] md:[--wa-gap:1.5rem]"
     >
       <span className="grid h-14 w-14 shrink-0 place-items-center">
         <svg viewBox="0 0 32 32" className="h-7 w-7" fill="currentColor" aria-hidden>

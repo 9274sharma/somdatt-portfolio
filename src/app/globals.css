@@ -1384,17 +1384,13 @@ body {
 .hm-calnav button { width: 2.75rem; height: 2.75rem; border-radius: 999px; }
 .hm-callegend > span { display: inline-flex; align-items: center; }
 
-/* WhatsApp bubble (bottom right) — lifts above the phone bottom bars that carry [data-bottom-bar="on"] */
+/* WhatsApp bubble (bottom right) — position is inline on the element; this only lifts it above
+   the phone bottom bars that carry [data-bottom-bar="on"] and animates that move */
 .wa-bubble {
-  right: max(1rem, env(safe-area-inset-right, 0px));
-  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
-  transition: opacity 0.35s ease, transform 0.35s ease, bottom 0.3s ease;
+  transition: bottom 0.3s ease, box-shadow 0.2s ease;
 }
-body:has([data-bottom-bar="on"]) .wa-bubble {
-  bottom: calc(max(1rem, env(safe-area-inset-bottom, 0px)) + 4.75rem);
-}
-@media (min-width: 768px) {
-  .wa-bubble { right: 1.5rem; bottom: 1.5rem; }
+body:has([data-bottom-bar="on"]) {
+  --wa-lift: 4.75rem;
 }
 @media (prefers-reduced-motion: reduce) {
   .wa-bubble { transition: none; }
