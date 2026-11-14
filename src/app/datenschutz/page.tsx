@@ -58,6 +58,12 @@ export default function DatenschutzPage() {
           </li>
         </ul>
         <p>
+          <strong>Kontakt per WhatsApp:</strong> Über den WhatsApp-Button können Sie mich direkt anschreiben. Die
+          Website lädt dafür keine Inhalte von WhatsApp; erst wenn Sie den Button antippen, öffnet sich WhatsApp
+          (WhatsApp Ireland Ltd.) und Ihre Nachricht wird nach dessen Bedingungen verarbeitet. Die Nutzung ist
+          freiwillig – Sie erreichen mich auch per E-Mail oder über das Anfrageformular.
+        </p>
+        <p>
           Zum Schutz vor Missbrauch wird Ihre IP-Adresse kurzzeitig (höchstens 10 Minuten) im Arbeitsspeicher
           verarbeitet, um die Zahl der Anfragen zu begrenzen; sie wird nicht gespeichert (Art. 6 Abs. 1 lit. f DSGVO).
         </p>

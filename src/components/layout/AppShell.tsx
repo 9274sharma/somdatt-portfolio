@@ -3,9 +3,10 @@
 import { usePathname } from "next/navigation";
 import { Header } from "./Header";
 import { Footer, type FooterData } from "./Footer";
+import { WhatsAppBubble } from "./WhatsAppBubble";
 
 /** Renders the site chrome (header/footer) everywhere except the full-screen Studio and the admin app. */
-export function AppShell({ children, footer }: { children: React.ReactNode; footer: FooterData }) {
+export function AppShell({ children, footer, whatsapp }: { children: React.ReactNode; footer: FooterData; whatsapp?: string }) {
   const pathname = usePathname();
   if (pathname?.startsWith("/studio") || pathname?.startsWith("/admin")) return <>{children}</>;
 
@@ -16,6 +17,7 @@ export function AppShell({ children, footer }: { children: React.ReactNode; foot
       <Header />
       <main className="flex-1">{children}</main>
       <Footer data={footer} />
+      <WhatsAppBubble number={whatsapp} />
     </div>
   );
 }

@@ -646,7 +646,7 @@ export function BookingForm({
         </p>
       </form>
       {start && !submitVisible && !sending ? (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-sand/60 bg-page/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md md:hidden">
+        <div data-bottom-bar="on" className="fixed inset-x-0 bottom-0 z-40 border-t border-sand/60 bg-page/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md md:hidden">
           <div className="flex items-center gap-3">
             <p className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">{when}</p>
             <button type="button" onClick={() => formRef.current?.requestSubmit()} className="hm-btn dark shrink-0">

@@ -73,6 +73,7 @@ export default async function RootLayout({
                 legalHeading: settings?.footerLegalHeading,
                 copyright: settings?.footerCopyright,
               }}
+              whatsapp={settings?.whatsapp}
             >
               {children}
             </AppShell>
