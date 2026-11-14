@@ -4,3 +4,5 @@
 !.env.example
 .next
 node_modules
+# README images — GitHub only, not part of the site
+docs
