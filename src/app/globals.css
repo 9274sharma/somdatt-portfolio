@@ -1383,3 +1383,15 @@ body {
 /* contact calendar: 44px month arrows; legend items line up with their swatches */
 .hm-calnav button { width: 2.75rem; height: 2.75rem; border-radius: 999px; }
 .hm-callegend > span { display: inline-flex; align-items: center; }
+
+/* WhatsApp bubble (bottom right) — position is inline on the element; this only lifts it above
+   the phone bottom bars that carry [data-bottom-bar="on"] and animates that move */
+.wa-bubble {
+  transition: bottom 0.3s ease, box-shadow 0.2s ease;
+}
+body:has([data-bottom-bar="on"]) {
+  --wa-lift: 4.75rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-bubble { transition: none; }
+}
